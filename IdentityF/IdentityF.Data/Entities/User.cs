@@ -39,8 +39,9 @@
         public List<Password> Passwords { get; set; }
         public List<Block> Blocks { get; set; }
         public List<Mfa> Mfas { get; set; }
+        public List<Confirm> Confirms { get; set; }
 
-        public bool IsBlocked()
+        public bool IsBlocked(DateTime dateTime)
         {
             if (!CanBeBlocked)
                 return false;
@@ -50,7 +51,7 @@
                 isLocked = false;
             else
             {
-                if (BlockedUntil.Value > DateTime.Now)
+                if (BlockedUntil.Value > dateTime)
                     isLocked = true;
                 else
                 {
