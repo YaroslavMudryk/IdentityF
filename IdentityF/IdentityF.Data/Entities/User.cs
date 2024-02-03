@@ -36,6 +36,7 @@
         public string Phone { get; set; }
         public bool IsConfirmed { get; set; }
 
+        public List<Password> Passwords { get; set; }
 
         public bool IsBlocked()
         {
