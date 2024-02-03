@@ -43,6 +43,7 @@
         public List<Contact> Contacts { get; set; }
         public List<UserRole> UserRoles { get; set; }
         public List<ExternalLogin> ExternalLogins { get; set; }
+        public List<Qr> Qrs { get; set; }
 
         public bool IsBlocked(DateTime dateTime)
         {

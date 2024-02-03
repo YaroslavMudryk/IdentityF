@@ -13,6 +13,7 @@ namespace IdentityF.Data
         public DbSet<Password> Passwords { get; set; }
         public DbSet<Block> Blocks { get; set; }
         public DbSet<Mfa> Mfas { get; set; }
+        public DbSet<Qr> Qrs { get; set; }
         public DbSet<Confirm> Confirms { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ExternalLogin> ExternalLogins { get; set; }
