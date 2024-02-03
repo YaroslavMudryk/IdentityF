@@ -13,5 +13,6 @@ namespace IdentityF.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Password> Passwords { get; set; }
         public DbSet<Block> Blocks { get; set; }
+        public DbSet<Mfa> Mfas { get; set; }
     }
 }
