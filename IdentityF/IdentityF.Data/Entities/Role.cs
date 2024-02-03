@@ -17,5 +17,6 @@
         public bool IsDefault { get; set; }
         public string NameNormalized { get; set; }
         public List<UserRole> UserRoles { get; set; }
+        public List<RoleClaim> RoleClaims { get; set; }
     }
 }
