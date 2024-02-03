@@ -15,5 +15,6 @@ namespace IdentityF.Data
         public DbSet<Block> Blocks { get; set; }
         public DbSet<Mfa> Mfas { get; set; }
         public DbSet<Confirm> Confirms { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

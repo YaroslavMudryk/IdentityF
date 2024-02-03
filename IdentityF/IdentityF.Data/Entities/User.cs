@@ -14,7 +14,7 @@
 
         public User(string firstName, string lastName, string userName, string login, string passwordHash) : this()
         {
-            
+
         }
 
         public string FirstName { get; set; }
@@ -40,6 +40,7 @@
         public List<Block> Blocks { get; set; }
         public List<Mfa> Mfas { get; set; }
         public List<Confirm> Confirms { get; set; }
+        public List<Contact> Contacts { get; set; }
 
         public bool IsBlocked(DateTime dateTime)
         {
