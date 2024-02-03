@@ -7,5 +7,6 @@
         public string Issuer { get; set; }
         public string DisplayText { get; set; }
         public List<RoleClaim> RoleClaims { get; set; }
+        public List<AppClaim> AppClaims { get; set; }
     }
 }
