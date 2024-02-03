@@ -41,6 +41,7 @@
         public List<Mfa> Mfas { get; set; }
         public List<Confirm> Confirms { get; set; }
         public List<Contact> Contacts { get; set; }
+        public List<UserRole> UserRoles { get; set; }
 
         public bool IsBlocked(DateTime dateTime)
         {

@@ -16,5 +16,7 @@ namespace IdentityF.Data
         public DbSet<Mfa> Mfas { get; set; }
         public DbSet<Confirm> Confirms { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }
