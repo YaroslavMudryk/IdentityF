@@ -17,6 +17,7 @@ namespace IdentityF.Data
         public DbSet<Confirm> Confirms { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ExternalLogin> ExternalLogins { get; set; }
+        public DbSet<LoginAttempt> LoginAttempts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
