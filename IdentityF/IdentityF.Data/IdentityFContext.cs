@@ -7,10 +7,11 @@ namespace IdentityF.Data
     {
         public IdentityFContext(DbContextOptions<IdentityFContext> contextOptions) : base(contextOptions)
         {
-            
+
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Password> Passwords { get; set; }
+        public DbSet<Block> Blocks { get; set; }
     }
 }

@@ -37,6 +37,7 @@
         public bool IsConfirmed { get; set; }
 
         public List<Password> Passwords { get; set; }
+        public List<Block> Blocks { get; set; }
 
         public bool IsBlocked()
         {
