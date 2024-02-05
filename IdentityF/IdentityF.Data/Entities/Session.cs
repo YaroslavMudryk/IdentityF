@@ -17,6 +17,7 @@ namespace IdentityF.Data.Entities
         public User User { get; set; }
         public int? DeviceId { get; set; }
         public Device Device { get; set; }
+        public List<Token> Tokens { get; set; }
     }
 
     public enum SessionStatus

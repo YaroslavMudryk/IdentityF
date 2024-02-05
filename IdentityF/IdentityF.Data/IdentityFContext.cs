@@ -20,6 +20,7 @@ namespace IdentityF.Data
         public DbSet<LoginAttempt> LoginAttempts { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
