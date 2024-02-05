@@ -22,5 +22,7 @@
         public bool IsVerified { get; set; }
         public DateTime? VerifiedAt { get; set; }
         public Guid? VerifiedOnSessionId { get; set; }
+
+        public List<Session> Sessions { get; set; }
     }
 }

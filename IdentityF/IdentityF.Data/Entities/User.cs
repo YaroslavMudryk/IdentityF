@@ -45,6 +45,7 @@
         public List<ExternalLogin> ExternalLogins { get; set; }
         public List<Qr> Qrs { get; set; }
         public List<LoginAttempt> LoginAttempts { get; set; }
+        public List<Session> Sessions { get; set; }
 
         public bool IsBlocked(DateTime dateTime)
         {
