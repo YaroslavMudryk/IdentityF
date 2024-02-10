@@ -28,5 +28,10 @@ namespace IdentityF.Data
         public DbSet<Claim> Claims { get; set; }
         public DbSet<AppClaim> AppClaims { get; set; }
         public DbSet<App> Apps { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityFContext).Assembly);
+        }
     }
 }
