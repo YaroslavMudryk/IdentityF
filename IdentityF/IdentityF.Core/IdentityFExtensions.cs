@@ -1,4 +1,6 @@
-﻿using IdentityF.Core.Features.Shared.Managers;
+﻿using IdentityF.Core.Features.Shared.Email;
+using IdentityF.Core.Features.Shared.Managers;
+using IdentityF.Core.Features.Shared.Sms;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Handlers;
 using IdentityF.Core.Middlewares;
@@ -20,6 +22,8 @@ namespace IdentityF
             if (optionsAction != null)
                 optionsAction(identityOptions);
 
+            SmsDependencies.Register(services);
+            EmailDependencies.Register(services);
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
 
