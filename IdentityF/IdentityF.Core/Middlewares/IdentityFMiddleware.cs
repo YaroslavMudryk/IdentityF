@@ -1,6 +1,8 @@
-﻿using IdentityF.Core.Handlers;
+﻿using IdentityF.Core.Features.Shared.Sessions.Services;
+using IdentityF.Core.Handlers;
 using IdentityF.Core.Options;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace IdentityF.Core.Middlewares
@@ -17,15 +19,16 @@ namespace IdentityF.Core.Middlewares
             _options = options.Value;
         }
 
-        public async Task InvokeAsync(HttpContext context, IEnumerable<IEndpointHandler> endpointHandlers)
+        public async Task InvokeAsync(HttpContext context, IServiceScopeFactory serviceScopeFactory)
         {
-            _endpointHandlers = endpointHandlers.Select(eh => eh.CreateFromOptions(_options.Endpoints));
+            using var scope = serviceScopeFactory.CreateScope();
+            _endpointHandlers = scope.ServiceProvider.GetRequiredService<IEnumerable<IEndpointHandler>>().Select(eh => eh.CreateFromOptions(_options.Endpoints));
 
             foreach (var handler in _endpointHandlers)
             {
                 if (handler.CanHandle(context))
                 {
-                    await handler.CheckAuthorizeStatusAsync(context);
+                    await handler.CheckAuthorizeStatusAsync(context, scope.ServiceProvider.GetRequiredService<ISessionManager>(), _options.Token.SessionValidateToken);
                     await handler.HandleAsync(context);
                     break;
                 }

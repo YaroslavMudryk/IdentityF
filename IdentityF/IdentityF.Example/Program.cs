@@ -1,4 +1,6 @@
+using IdentityF.Core.Features.Shared.Sessions.Services;
 using IdentityF.Core.Helpers;
+using IdentityF.Core.Seeder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +27,12 @@ namespace IdentityF.Example
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            builder.Services.AddIdentityFServices();
+            builder.Services.AddIdentityFServices(configure =>
+            {
+                configure.Token.SessionValidateToken = false;
+                configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);
+                configure.Token.SessionManager.Lifetime = ServiceLifetime.Singleton;
+            });
 
             builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 
@@ -60,9 +67,19 @@ namespace IdentityF.Example
             app.UseAuthorization();
             app.UseIdentityF();
 
+
             app.MapGet("/hello", (IDateTimeProvider dateTimeProvider) =>
             {
                 return Results.Ok(new { date = dateTimeProvider.UtcNow, message = "Hello world!" });
+            });
+
+            app.MapGet("/init-db", async (IDatabaseService dbService) =>
+            {
+                var createdDb = await dbService.CreateDbAsync();
+
+                var s = await dbService.SeedSystemAsync();
+
+                return Results.Ok(s);
             });
 
             app.Run();

@@ -1,5 +1,6 @@
 ﻿using IdentityF.Core.Features.Shared.Email;
 using IdentityF.Core.Features.Shared.Managers;
+using IdentityF.Core.Features.Shared.Sessions.Services;
 using IdentityF.Core.Features.Shared.Sms;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Handlers;
@@ -27,7 +28,21 @@ namespace IdentityF
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
 
-            services.AddScoped<IEndpointHandler, InitEndpointHandler>();
+            var sessionManager = identityOptions.Token.SessionManager;
+            if (sessionManager.Implementation != null && typeof(ISessionManager).IsAssignableFrom(sessionManager.Implementation))
+            {
+                if (sessionManager.Lifetime == ServiceLifetime.Transient)
+                    services.AddTransient(typeof(ISessionManager), sessionManager.Implementation);
+                if (sessionManager.Lifetime == ServiceLifetime.Scoped)
+                    services.AddScoped(typeof(ISessionManager), sessionManager.Implementation);
+                if (sessionManager.Lifetime == ServiceLifetime.Singleton)
+                    services.AddSingleton(typeof(ISessionManager), sessionManager.Implementation);
+            }
+            else
+            {
+                services.AddSingleton<ISessionManager, InMemorySessionManager>();
+            }
+
             services.AddScoped<IEndpointHandler, SignUpEndpointHandler>();
             services.AddDbContext<IdentityFContext>(o =>
             {
