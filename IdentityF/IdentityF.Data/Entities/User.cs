@@ -14,6 +14,11 @@
 
         public User(string firstName, string lastName, string userName, string login, string passwordHash) : this()
         {
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            Login = login;
+            PasswordHash = passwordHash;
             Email = login;
         }
 

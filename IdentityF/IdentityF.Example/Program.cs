@@ -1,3 +1,4 @@
+using IdentityF.Core.Exceptions;
 using IdentityF.Core.Features.Shared.Auth.Services;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Seeder;

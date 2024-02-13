@@ -31,6 +31,9 @@ namespace IdentityF.Core.Features.SignUp.Services
 
         public async Task SignUpAsync(SignUpDto signUpDto)
         {
+            if (!Regex.IsMatch(signUpDto.Password, _options.Password.Regex))
+                throw new PasswordRequirementsException(_options.Password.ErrorRegexMessages["en"]);
+
             var existUser = await _userManager.IsExistUsersAsync(user => user.Login == signUpDto.Login);
             if (existUser)
                 throw new UserAlreadyRegisterdException("User with this login is already registered");
@@ -43,9 +46,6 @@ namespace IdentityF.Core.Features.SignUp.Services
             var confirmAccount = Confirm.NewWithEmail(now, Generator.GetConfirmCode(_options.Codes[CodesGenerator.ConfirmAccount]));
 
             var userPassword = signUpDto.Password.GeneratePasswordHash();
-
-            if (!Regex.IsMatch(signUpDto.Password, _options.Password.Regex))
-                throw new PasswordRequirementsException(_options.Password.ErrorRegexMessages["en"]);
 
             var newPassword = new Password
             {

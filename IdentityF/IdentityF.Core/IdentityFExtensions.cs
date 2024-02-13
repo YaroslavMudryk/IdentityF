@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using YaMu.Helpers;
+using IdentityF.Core.Exceptions;
+using IdentityF.Data.Entities;
 
 namespace IdentityF
 {
@@ -28,6 +30,7 @@ namespace IdentityF
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
 
+            services.AddHttpContextAccessor();
             services.AddScoped<IAuthService, AuthService>();
 
             var sessionManager = identityOptions.Token.SessionManager;
@@ -58,6 +61,7 @@ namespace IdentityF
 
         public static void UseIdentityF(this IApplicationBuilder builder)
         {
+            builder.UseMiddleware<IdentityFErrorHandler>();
             builder.UseMiddleware<IdentityFMiddleware>();
         }
     }
