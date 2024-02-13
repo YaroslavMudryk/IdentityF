@@ -4,17 +4,17 @@
     {
         public User()
         {
+            IsConfirmed = false;
+            FailedLoginAttempts = 0;
             CanBeBlocked = true;
             BlockedUntil = null;
-            FailedLoginAttempts = 0;
             Mfa = false;
             MfaSecretKey = null;
-            IsConfirmed = false;
         }
 
         public User(string firstName, string lastName, string userName, string login, string passwordHash) : this()
         {
-
+            Email = login;
         }
 
         public string FirstName { get; set; }

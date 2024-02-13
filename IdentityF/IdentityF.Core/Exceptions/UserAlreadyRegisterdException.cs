@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Core.Exceptions
+﻿using IdentityF.Data.Entities;
+
+namespace IdentityF.Core.Exceptions
 {
     public class UserAlreadyRegisterdException : HttpResponseException
     {
@@ -9,7 +11,6 @@
 
         public UserAlreadyRegisterdException(string error) : base(400, error)
         {
-
         }
     }
 }

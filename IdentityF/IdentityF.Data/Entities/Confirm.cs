@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Reflection.Emit;
+
+namespace IdentityF.Data.Entities
 {
     public class Confirm : BaseModel<int>
     {
@@ -15,6 +17,19 @@
         public bool IsActualyRequest(DateTime dateTime)
         {
             return dateTime >= ActiveFrom && dateTime <= ActiveTo;
+        }
+
+        public static Confirm NewWithEmail(DateTime now, string code)
+        {
+            return new Confirm
+            {
+                ActiveFrom = now,
+                ActiveTo = now.AddDays(1),
+                Code = code,
+                Type = ConfirmType.Email,
+                IsActivated = false,
+                ActivetedAt = null
+            };
         }
     }
     public enum ConfirmType

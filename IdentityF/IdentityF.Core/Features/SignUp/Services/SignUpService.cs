@@ -8,6 +8,7 @@ using IdentityF.Core.Options;
 using IdentityF.Data;
 using IdentityF.Data.Entities;
 using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 using YaMu.Helpers;
 
 namespace IdentityF.Core.Features.SignUp.Services
@@ -39,17 +40,12 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var now = _dateTimeProvider.UtcNow;
 
-            var confirmAccount = new Confirm
-            {
-                ActiveFrom = now,
-                ActiveTo = now.AddDays(1),
-                Code = Generator.GetConfirmCode(_options.Codes[CodesGenerator.ConfirmAccount]),
-                Type = ConfirmType.Email,
-                IsActivated = false,
-                ActivetedAt = null
-            };
+            var confirmAccount = Confirm.NewWithEmail(now, Generator.GetConfirmCode(_options.Codes[CodesGenerator.ConfirmAccount]));
 
             var userPassword = signUpDto.Password.GeneratePasswordHash();
+
+            if (!Regex.IsMatch(signUpDto.Password, _options.Password.Regex))
+                throw new PasswordRequirementsException(_options.Password.ErrorRegexMessages["en"]);
 
             var newPassword = new Password
             {
@@ -60,20 +56,8 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var role = await _roleManager.GetDefaultRoleAsync();
 
-            var newUser = new User
+            var newUser = new User(signUpDto.FirstName, signUpDto.LastName, signUpDto.UserName, signUpDto.Login, userPassword)
             {
-                FirstName = signUpDto.FirstName,
-                LastName = signUpDto.LastName,
-                UserName = signUpDto.UserName,
-                Login = signUpDto.Login,
-                PasswordHash = userPassword,
-                Email = signUpDto.Login,
-                IsConfirmed = false,
-                FailedLoginAttempts = 0,
-                CanBeBlocked = true,
-                BlockedUntil = null,
-                Mfa = false,
-                MfaSecretKey = null,
                 Confirms = new List<Confirm> { confirmAccount },
                 Passwords = new List<Password> { newPassword }
             };
