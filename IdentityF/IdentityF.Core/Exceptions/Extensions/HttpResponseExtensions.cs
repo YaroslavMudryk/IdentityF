@@ -1,8 +1,8 @@
-﻿using IdentityF.Core.Responses;
+﻿using IdentityF.Core.Helpers;
+using IdentityF.Core.Responses;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mime;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace IdentityF.Core.Exceptions.Extensions
 {
@@ -16,7 +16,7 @@ namespace IdentityF.Core.Exceptions.Extensions
             {
                 StatusCode = statusCode,
                 Error = error,
-            }, new JsonSerializerOptions { WriteIndented = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull })).ConfigureAwait(true);
+            }, JsonOptionsDefault.Default));
         }
 
         public static Task WriteAsJsonAsync(this HttpResponse response, HttpResponseException exception)
