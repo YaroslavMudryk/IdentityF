@@ -2,7 +2,7 @@
 {
     public class TokenOptions
     {
-        public bool SessionValidateToken { get; set; } = true;
+        public bool UseSessionManager { get; set; } = true;
         public string Issuer { get; set; } = "IdentityF";
         public string Audience { get; set; } = "IdentityF Client";
         public string SecretKey { get; set; } = "0293fj2093fj3209fhg290gvj23rj032hf";

@@ -1,4 +1,4 @@
-using IdentityF.Core.Features.Shared.Sessions.Services;
+using IdentityF.Core.Features.Shared.Auth.Services;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Seeder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,7 +29,7 @@ namespace IdentityF.Example
 
             builder.Services.AddIdentityFServices(configure =>
             {
-                configure.Token.SessionValidateToken = false;
+                configure.Token.UseSessionManager = false;
                 configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);
                 configure.Token.SessionManager.Lifetime = ServiceLifetime.Singleton;
             });

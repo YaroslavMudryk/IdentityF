@@ -1,11 +1,11 @@
-﻿using IdentityF.Core.Features.Shared.Sessions.Dtos;
+﻿using IdentityF.Core.Features.Shared.Auth.Dtos;
 using IdentityF.Data;
 using IdentityF.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using YaMu.Helpers;
 
-namespace IdentityF.Core.Features.Shared.Sessions.Services
+namespace IdentityF.Core.Features.Shared.Auth.Services
 {
     public class InMemorySessionManager : ISessionManager
     {

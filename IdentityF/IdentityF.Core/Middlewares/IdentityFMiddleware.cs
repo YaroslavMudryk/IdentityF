@@ -1,4 +1,4 @@
-﻿using IdentityF.Core.Features.Shared.Sessions.Services;
+﻿using IdentityF.Core.Features.Shared.Auth.Services;
 using IdentityF.Core.Handlers;
 using IdentityF.Core.Options;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +28,8 @@ namespace IdentityF.Core.Middlewares
             {
                 if (handler.CanHandle(context))
                 {
-                    await handler.CheckAuthorizeStatusAsync(context, scope.ServiceProvider.GetRequiredService<ISessionManager>(), _options.Token.SessionValidateToken);
+                    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+                    await authService.CheckAuthorizationAsync(handler.Endpoint);
                     await handler.HandleAsync(context);
                     break;
                 }

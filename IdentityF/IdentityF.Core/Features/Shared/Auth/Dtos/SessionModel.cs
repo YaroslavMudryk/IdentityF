@@ -1,4 +1,4 @@
-﻿namespace IdentityF.Core.Features.Shared.Sessions.Dtos
+﻿namespace IdentityF.Core.Features.Shared.Auth.Dtos
 {
     public class SessionModel
     {

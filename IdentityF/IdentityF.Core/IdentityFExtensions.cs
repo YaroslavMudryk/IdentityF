@@ -1,6 +1,6 @@
 ﻿using IdentityF.Core.Features.Shared.Email;
 using IdentityF.Core.Features.Shared.Managers;
-using IdentityF.Core.Features.Shared.Sessions.Services;
+using IdentityF.Core.Features.Shared.Auth.Services;
 using IdentityF.Core.Features.Shared.Sms;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Handlers;
@@ -27,6 +27,8 @@ namespace IdentityF
             EmailDependencies.Register(services);
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
+
+            services.AddScoped<IAuthService, AuthService>();
 
             var sessionManager = identityOptions.Token.SessionManager;
             if (sessionManager.Implementation != null && typeof(ISessionManager).IsAssignableFrom(sessionManager.Implementation))

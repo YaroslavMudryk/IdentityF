@@ -1,6 +1,6 @@
-﻿using IdentityF.Core.Features.Shared.Sessions.Dtos;
+﻿using IdentityF.Core.Features.Shared.Auth.Dtos;
 
-namespace IdentityF.Core.Features.Shared.Sessions.Services
+namespace IdentityF.Core.Features.Shared.Auth.Services
 {
     public interface ISessionManager
     {
