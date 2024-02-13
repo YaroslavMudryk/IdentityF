@@ -1,6 +1,7 @@
 ﻿using IdentityF.Core.Constants;
 using IdentityF.Core.Features.SignUp.Dtos;
 using IdentityF.Core.Features.SignUp.Services;
+using IdentityF.Core.Handlers;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Options;
 using IdentityF.Core.Responses;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 using YaMu.Helpers.Extensions;
 
-namespace IdentityF.Core.Handlers
+namespace IdentityF.Core.Features.SignUp
 {
     public class SignUpEndpointHandler : BaseEndpointHandler, IEndpointHandler
     {

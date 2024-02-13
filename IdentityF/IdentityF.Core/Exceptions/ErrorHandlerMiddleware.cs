@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace IdentityF.Core.Exceptions
 {
-    public class IdentityFErrorHandler
+    public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public IdentityFErrorHandler(RequestDelegate next)
+        public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }

@@ -1,8 +1,8 @@
 ﻿using IdentityF.Core.Constants;
-using IdentityF.Data.Entities;
 using IdentityF.Data;
-using YaMu.Helpers;
+using IdentityF.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using YaMu.Helpers;
 
 namespace IdentityF.Core.Seeder
 {

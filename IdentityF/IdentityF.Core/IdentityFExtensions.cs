@@ -48,7 +48,6 @@ namespace IdentityF
                 services.AddSingleton<ISessionManager, InMemorySessionManager>();
             }
 
-            services.AddScoped<IEndpointHandler, SignUpEndpointHandler>();
             services.AddDbContext<IdentityFContext>(o =>
             {
                 o.UseSqlite(identityOptions.ConnectionString);
@@ -61,7 +60,7 @@ namespace IdentityF
 
         public static void UseIdentityF(this IApplicationBuilder builder)
         {
-            builder.UseMiddleware<IdentityFErrorHandler>();
+            builder.UseMiddleware<ErrorHandlerMiddleware>();
             builder.UseMiddleware<IdentityFMiddleware>();
         }
     }
