@@ -28,7 +28,7 @@ namespace IdentityF.Example
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            builder.Services.AddIdentityFServices(SupportedDatabaseProviders.Sqlite, configure =>
+            builder.Services.AddIdentityFServices(DatabaseProviders.Sqlite, configure =>
             {
                 configure.Token.UseSessionManager = false;
                 configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);

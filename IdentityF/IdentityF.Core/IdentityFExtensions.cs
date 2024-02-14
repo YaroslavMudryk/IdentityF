@@ -18,7 +18,7 @@ namespace IdentityF
 {
     public static class IdentityFExtensions
     {
-        public static IServiceCollection AddIdentityFServices(this IServiceCollection services, SupportedDatabaseProviders provider, Action<IdentityFOptions> optionsAction = null)
+        public static IServiceCollection AddIdentityFServices(this IServiceCollection services, DatabaseProviders provider, Action<IdentityFOptions> optionsAction = null)
         {
             var identityOptions = new IdentityFOptions();
             if (optionsAction != null)
@@ -51,20 +51,20 @@ namespace IdentityF
 
             services.AddDbContext<IdentityFContext>(options =>
             {
-                if (provider == SupportedDatabaseProviders.Sqlite)
+                if (provider == DatabaseProviders.Sqlite)
                 {
                     options.UseSqlite(connectionString);
                 }
-                if (provider == SupportedDatabaseProviders.SqlServer)
+                if (provider == DatabaseProviders.SqlServer)
                 {
                     options.UseSqlServer(connectionString);
                 }
-                if (provider == SupportedDatabaseProviders.Postgres)
+                if (provider == DatabaseProviders.Postgres)
                 {
                     options.UseNpgsql(connectionString);
                     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 }
-                if (provider == SupportedDatabaseProviders.MySql)
+                if (provider == DatabaseProviders.MySql)
                 {
                     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 }

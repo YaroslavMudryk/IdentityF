@@ -1,6 +1,6 @@
 ﻿namespace IdentityF.Data.Enums
 {
-    public enum SupportedDatabaseProviders
+    public enum DatabaseProviders
     {
         SqlServer,
         MySql,
