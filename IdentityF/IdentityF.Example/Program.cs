@@ -30,7 +30,6 @@ namespace IdentityF.Example
 
             builder.Services.AddIdentityFServices(SupportedDatabaseProviders.Sqlite, configure =>
             {
-                configure.Endpoints["SignUp"].Endpoint = "/api/sign-up";
                 configure.Token.UseSessionManager = false;
                 configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);
                 configure.Token.SessionManager.Lifetime = ServiceLifetime.Singleton;
