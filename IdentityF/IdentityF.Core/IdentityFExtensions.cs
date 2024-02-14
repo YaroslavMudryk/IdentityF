@@ -1,19 +1,17 @@
-﻿using IdentityF.Core.Features.Shared.Email;
-using IdentityF.Core.Features.Shared.Managers;
-using IdentityF.Core.Features.Shared.Auth.Services;
-using IdentityF.Core.Features.Shared.Sms;
+﻿using IdentityF.Core.ErrorHandling;
 using IdentityF.Core.Features.SignUp;
-using IdentityF.Core.Handlers;
+using IdentityF.Core.Managers;
 using IdentityF.Core.Middlewares;
 using IdentityF.Core.Options;
 using IdentityF.Core.Seeder;
+using IdentityF.Core.Services.Auth;
+using IdentityF.Core.Services.Email;
+using IdentityF.Core.Services.Sms;
 using IdentityF.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using YaMu.Helpers;
-using IdentityF.Core.Exceptions;
-using IdentityF.Data.Entities;
 
 namespace IdentityF
 {
@@ -29,9 +27,9 @@ namespace IdentityF
             EmailDependencies.Register(services);
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
+            AuthDependencies.Register(services);
 
             services.AddHttpContextAccessor();
-            services.AddScoped<IAuthService, AuthService>();
 
             var sessionManager = identityOptions.Token.SessionManager;
             if (sessionManager.Implementation != null && typeof(ISessionManager).IsAssignableFrom(sessionManager.Implementation))
@@ -60,7 +58,7 @@ namespace IdentityF
 
         public static void UseIdentityF(this IApplicationBuilder builder)
         {
-            builder.UseMiddleware<ErrorHandlerMiddleware>();
+            builder.UseMiddleware<GlobalErrorHandlerMiddleware>();
             builder.UseMiddleware<IdentityFMiddleware>();
         }
     }

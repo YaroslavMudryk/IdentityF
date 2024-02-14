@@ -21,12 +21,20 @@ namespace IdentityF.Core.Helpers
             if (chars.Length == 0)
                 throw new ArgumentException("At least one of IncludeNumbers or IncludeLetters must be true.");
 
-            for(int i = 0; i <options.Size; i++)
+            for (int i = 0; i < options.Size; i++)
             {
                 codeBuilder.Append(chars[random.Next(chars.Length)]);
             }
 
-            return codeBuilder.ToString();
+            var code = codeBuilder.ToString();
+
+            if (options.OnlyLowercase)
+                code = code.ToLower();
+
+            if (options.OnlyUppercase)
+                code = code.ToUpper();
+
+            return code;
         }
 
         public static string GetUserName()

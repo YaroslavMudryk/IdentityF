@@ -1,6 +1,6 @@
-﻿using IdentityF.Core.Features.Shared.Auth.Services;
-using IdentityF.Core.Handlers;
+﻿using IdentityF.Core.Handlers;
 using IdentityF.Core.Options;
+using IdentityF.Core.Services.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,8 +28,8 @@ namespace IdentityF.Core.Middlewares
             {
                 if (handler.CanHandle(context))
                 {
-                    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
-                    await authService.CheckAuthorizationAsync(handler.Endpoint);
+                    var authService = scope.ServiceProvider.GetRequiredService<IEndpointService>();
+                    await authService.CheckHandlerAuthorizationAsync(handler.Endpoint);
                     await handler.HandleAsync(context);
                     break;
                 }

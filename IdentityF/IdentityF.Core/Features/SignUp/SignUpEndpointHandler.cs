@@ -5,6 +5,7 @@ using IdentityF.Core.Handlers;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Options;
 using IdentityF.Core.Responses;
+using IdentityF.Core.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
@@ -12,7 +13,7 @@ using YaMu.Helpers.Extensions;
 
 namespace IdentityF.Core.Features.SignUp
 {
-    public class SignUpEndpointHandler : BaseEndpointHandler, IEndpointHandler
+    public class SignUpEndpointHandler : IEndpointHandler
     {
         public SignUpEndpointHandler()
         {
@@ -37,7 +38,7 @@ namespace IdentityF.Core.Features.SignUp
         {
             var registerBody = await JsonSerializer.DeserializeAsync<SignUpDto>(context.Request.Body, JsonOptionsDefault.Default);
 
-            ValidateModel(registerBody);
+            Validation.ValidateModel(registerBody);
 
             var signUpService = context.RequestServices.GetRequiredService<ISignUpService>();
 

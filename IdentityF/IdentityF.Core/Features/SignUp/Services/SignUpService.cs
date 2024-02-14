@@ -1,9 +1,9 @@
 ﻿using Extensions.Password;
 using IdentityF.Core.Constants;
-using IdentityF.Core.Exceptions;
-using IdentityF.Core.Features.Shared.Managers.Services;
+using IdentityF.Core.ErrorHandling.Exceptions;
 using IdentityF.Core.Features.SignUp.Dtos;
 using IdentityF.Core.Helpers;
+using IdentityF.Core.Managers;
 using IdentityF.Core.Options;
 using IdentityF.Data;
 using IdentityF.Data.Entities;
@@ -43,7 +43,7 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var now = _dateTimeProvider.UtcNow;
 
-            var confirmAccount = Confirm.NewWithEmail(now, Generator.GetConfirmCode(_options.Codes[CodesGenerator.ConfirmAccount]));
+            var confirmAccount = Confirm.NewWithEmail(now, Generator.GetConfirmCode(_options.Codes[CodeConfigs.ConfirmAccount]));
 
             var userPassword = signUpDto.Password.GeneratePasswordHash();
 
