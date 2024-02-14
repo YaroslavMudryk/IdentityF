@@ -3,8 +3,8 @@ using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Managers;
 using IdentityF.Core.Middlewares;
 using IdentityF.Core.Options;
-using IdentityF.Core.Seeder;
 using IdentityF.Core.Services.Auth;
+using IdentityF.Core.Services.Db;
 using IdentityF.Core.Services.Email;
 using IdentityF.Core.Services.Sms;
 using IdentityF.Data;
@@ -52,6 +52,7 @@ namespace IdentityF
             });
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
             services.AddDateTimeProvider();
+            services.Configure(optionsAction);
             return services;
         }
 

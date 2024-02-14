@@ -4,14 +4,8 @@ using IdentityF.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using YaMu.Helpers;
 
-namespace IdentityF.Core.Seeder
+namespace IdentityF.Core.Services.Db
 {
-    public interface IDatabaseService
-    {
-        Task<bool> CreateDbAsync();
-        Task<int> SeedSystemAsync();
-    }
-
     public class IdentityDatabaseService : IDatabaseService
     {
         private readonly IdentityFContext _db;

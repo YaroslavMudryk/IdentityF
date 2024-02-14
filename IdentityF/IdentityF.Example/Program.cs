@@ -1,7 +1,7 @@
 using IdentityF.Core.Exceptions;
 using IdentityF.Core.Helpers;
-using IdentityF.Core.Seeder;
 using IdentityF.Core.Services.Auth;
+using IdentityF.Core.Services.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
