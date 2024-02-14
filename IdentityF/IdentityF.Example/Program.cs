@@ -1,7 +1,7 @@
-using IdentityF.Core.Exceptions;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Services.Auth;
 using IdentityF.Core.Services.Db;
+using IdentityF.Data.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -28,8 +28,9 @@ namespace IdentityF.Example
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            builder.Services.AddIdentityFServices(configure =>
+            builder.Services.AddIdentityFServices(SupportedDatabaseProviders.Sqlite, configure =>
             {
+                configure.Endpoints["SignUp"].Endpoint = "/api/sign-up";
                 configure.Token.UseSessionManager = false;
                 configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);
                 configure.Token.SessionManager.Lifetime = ServiceLifetime.Singleton;

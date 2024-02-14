@@ -8,6 +8,7 @@ using IdentityF.Core.Services.Db;
 using IdentityF.Core.Services.Email;
 using IdentityF.Core.Services.Sms;
 using IdentityF.Data;
+using IdentityF.Data.Enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ namespace IdentityF
 {
     public static class IdentityFExtensions
     {
-        public static IServiceCollection AddIdentityFServices(this IServiceCollection services, Action<IdentityFOptions> optionsAction = null)
+        public static IServiceCollection AddIdentityFServices(this IServiceCollection services, SupportedDatabaseProviders provider, Action<IdentityFOptions> optionsAction = null)
         {
             var identityOptions = new IdentityFOptions();
             if (optionsAction != null)
@@ -46,13 +47,30 @@ namespace IdentityF
                 services.AddSingleton<ISessionManager, InMemorySessionManager>();
             }
 
-            services.AddDbContext<IdentityFContext>(o =>
+            var connectionString = identityOptions.ConnectionString;
+
+            services.AddDbContext<IdentityFContext>(options =>
             {
-                o.UseSqlite(identityOptions.ConnectionString);
+                if (provider == SupportedDatabaseProviders.Sqlite)
+                {
+                    options.UseSqlite(connectionString);
+                }
+                if (provider == SupportedDatabaseProviders.SqlServer)
+                {
+                    options.UseSqlServer(connectionString);
+                }
+                if (provider == SupportedDatabaseProviders.Postgres)
+                {
+                    options.UseNpgsql(connectionString);
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                }
+                if (provider == SupportedDatabaseProviders.MySql)
+                {
+                    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                }
             });
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
             services.AddDateTimeProvider();
-            services.Configure(optionsAction);
             return services;
         }
 
