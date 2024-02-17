@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IdentityF.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IdentityF.Core.Services.Auth
 {
@@ -6,6 +7,7 @@ namespace IdentityF.Core.Services.Auth
     {
         public static void Register(IServiceCollection services)
         {
+            services.AddScoped<ICurrentUserContext, HttpCurrentUserContext>();
             services.AddScoped<IEndpointService, EndpointService>();
         }
     }

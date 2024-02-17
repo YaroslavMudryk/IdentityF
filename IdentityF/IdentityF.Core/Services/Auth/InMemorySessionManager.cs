@@ -115,7 +115,7 @@ namespace IdentityF.Core.Services.Auth
                     UserId = session.UserId,
                     Tokens = activeTokens.Where(s => s.SessionId == session.Id).Select(s => new TokenModel { Token = s.JwtToken, RefreshToken = s.RefreshToken, ExpiredAt = s.ExpiredAt }).ToList()
                 };
-                _sessions.Add(newSession);
+                sessions.Add(newSession);
             }
 
             return sessions;

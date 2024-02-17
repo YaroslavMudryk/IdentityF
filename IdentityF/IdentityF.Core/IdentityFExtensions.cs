@@ -1,4 +1,5 @@
 ﻿using IdentityF.Core.ErrorHandling;
+using IdentityF.Core.Features.SignIn;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Managers;
 using IdentityF.Core.Middlewares;
@@ -6,6 +7,7 @@ using IdentityF.Core.Options;
 using IdentityF.Core.Services.Auth;
 using IdentityF.Core.Services.Db;
 using IdentityF.Core.Services.Email;
+using IdentityF.Core.Services.Location;
 using IdentityF.Core.Services.Sms;
 using IdentityF.Data;
 using IdentityF.Data.Enums;
@@ -29,6 +31,8 @@ namespace IdentityF
             ManagersDependencies.Register(services);
             SignUpDependencies.Register(services);
             AuthDependencies.Register(services);
+            SignInDependencies.Register(services);
+            LocationDependencies.Register(services);
 
             services.AddHttpContextAccessor();
 

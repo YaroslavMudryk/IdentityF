@@ -1,13 +1,19 @@
 ﻿using IdentityF.Data.Entities;
+using IdentityF.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
+using YaMu.Helpers;
+using YaMu.Helpers.Db.Extensions;
 
 namespace IdentityF.Data
 {
     public class IdentityFContext : DbContext
     {
-        public IdentityFContext(DbContextOptions<IdentityFContext> contextOptions) : base(contextOptions)
+        private readonly ICurrentUserContext _currentUserContext;
+        private readonly IDateTimeProvider _dateTimeProvider;
+        public IdentityFContext(DbContextOptions<IdentityFContext> contextOptions, ICurrentUserContext currentUserContext, IDateTimeProvider dateTimeProvider) : base(contextOptions)
         {
-
+            _currentUserContext = currentUserContext;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public DbSet<Password> Passwords { get; set; }
@@ -32,6 +38,20 @@ namespace IdentityF.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityFContext).Assembly);
+        }
+
+        public override int SaveChanges()
+        {
+            this.ApplyAuditInfo(_currentUserContext, _dateTimeProvider);
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            this.ApplyAuditInfo(_currentUserContext, _dateTimeProvider);
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
