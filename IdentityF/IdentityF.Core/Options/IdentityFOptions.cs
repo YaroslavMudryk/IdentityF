@@ -5,7 +5,7 @@ namespace IdentityF.Core.Options
     public class IdentityFOptions
     {
         public string Name { get; set; } = "IdentityF";
-        public string ConnectionString { get; set; } = "Data Source=IdentityDb.db3";
+        public DbConnectionOptions DbConnection { get; set; } = new DbConnectionOptions();
         public PasswordOptions Password { get; set; } = new PasswordOptions();
         public TokenOptions Token { get; set; } = new TokenOptions();
         public Dictionary<string, EndpointOptions> Endpoints { get; set; } = HttpEndpoints.Default;

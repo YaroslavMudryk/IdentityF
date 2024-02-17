@@ -1,3 +1,4 @@
+using IdentityF.Core.Constants;
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Options;
 using IdentityF.Core.Services.Db;
@@ -25,11 +26,7 @@ namespace IdentityF.Example
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            builder.Services.AddIdentityFServices(DatabaseProviders.Sqlite, configure =>
-            {
-                var options = builder.Configuration.GetSection("IdentityF").Get<IdentityFOptions>();
-                configure = options;
-            });
+            builder.Services.AddIdentityFServices();
 
             builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 
