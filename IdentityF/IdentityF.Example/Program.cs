@@ -43,16 +43,17 @@ namespace IdentityF.Example
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(jwt =>
                         {
-                            var identityOptions = builder.Configuration.GetSection("IdentityF").Get<IdentityFOptions>();
                             jwt.RequireHttpsMetadata = false;
                             jwt.SaveToken = true;
                             jwt.TokenValidationParameters = new TokenValidationParameters
                             {
                                 ValidateIssuer = true,
-                                ValidIssuer = identityOptions?.Token.Issuer,
+                                ValidIssuer = "IdentityF",
+                                ValidateAudience = true,
+                                ValidAudience = "IdentityF Client",
                                 ValidateLifetime = true,
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(identityOptions?.Token?.SecretKey!)),
-                                ValidateIssuerSigningKey = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("0293fj2093fj3209fhg290gvj23rj032hf")),
+                                ValidateIssuerSigningKey = true
                             };
                         });
 

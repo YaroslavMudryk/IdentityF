@@ -1,4 +1,5 @@
 ﻿using IdentityF.Core.Constants;
+using IdentityF.Core.Exceptions.Extensions;
 using IdentityF.Core.Features.SignUp.Dtos;
 using IdentityF.Core.Features.SignUp.Services;
 using IdentityF.Core.Handlers;
@@ -9,7 +10,6 @@ using IdentityF.Core.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
-using YaMu.Helpers.Extensions;
 
 namespace IdentityF.Core.Features.SignUp
 {

@@ -20,6 +20,13 @@ namespace IdentityF.Core.Exceptions.Extensions
             }, JsonOptionsDefault.Default));
         }
 
+        public static async Task WriteAsJsonAsync(this HttpResponse response, ApiResponse apiResponse)
+        {
+            response.ContentType = MediaTypeNames.Application.Json;
+            response.StatusCode = apiResponse.StatusCode;
+            await response.WriteAsync(JsonSerializer.Serialize(apiResponse, JsonOptionsDefault.Default));
+        }
+
         public static Task WriteAsJsonAsync(this HttpResponse response, HttpResponseException exception)
         {
             return WriteAsJsonAsync(response, exception.StatusCode, exception.Error);

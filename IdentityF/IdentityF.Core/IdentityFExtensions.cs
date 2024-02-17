@@ -1,4 +1,5 @@
 ﻿using IdentityF.Core.ErrorHandling;
+using IdentityF.Core.Features.Sessions;
 using IdentityF.Core.Features.SignIn;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Managers;
@@ -33,6 +34,7 @@ namespace IdentityF
             AuthDependencies.Register(services);
             SignInDependencies.Register(services);
             LocationDependencies.Register(services);
+            SessionsDependencies.Register(services);
 
             services.AddHttpContextAccessor();
 
@@ -75,6 +77,7 @@ namespace IdentityF
             });
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
             services.AddDateTimeProvider();
+            services.Configure(optionsAction);
             return services;
         }
 

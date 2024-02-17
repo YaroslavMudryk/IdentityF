@@ -4,5 +4,6 @@
     {
         public const string SignUpAction = "SignUp";
         public const string SignInAction = "SignIn";
+        public const string SessionsAction = "Sessions";
     }
 }

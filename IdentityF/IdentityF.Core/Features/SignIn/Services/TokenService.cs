@@ -68,7 +68,7 @@ namespace IdentityF.Core.Features.SignIn.Services
             var expiredAt = now.AddMinutes(_options.Token.LifetimeInMinutes);
             var jwt = new JwtSecurityToken(
                 issuer: _options.Token.Issuer,
-                audience: userToken.Session.App.Name,
+                audience: _options.Token.Audience,
                 notBefore: now,
                 claims: claimsIdentity.Claims,
                 expires: expiredAt,

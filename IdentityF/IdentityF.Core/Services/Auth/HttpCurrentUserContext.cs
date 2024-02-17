@@ -15,8 +15,12 @@ namespace IdentityF.Core.Services.Auth
 
         public CurrentUser User => new CurrentUser
         {
-            Id = !IsAuth() ? 0 : Convert.ToInt32(_httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.UserId)),
+            Id = !IsAuth() ? 0 : Convert.ToInt32(_httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.UserId).Value),
             Roles = !IsAuth() ? Enumerable.Empty<string>() : _httpContext.User.Claims.Where(s => s.Type == ConstantsClaimTypes.Role).Select(s => s.Value),
+            SessionId = !IsAuth() ? Guid.Empty.ToString() : _httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.SessionId).Value,
+            Login = !IsAuth() ? null : _httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.Login).Value,
+            Language = !IsAuth() ? null : _httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.Language).Value,
+            AuthenticationMethod = !IsAuth() ? null : _httpContext.User.Claims.First(s => s.Type == ConstantsClaimTypes.AuthenticationMethod).Value
         };
 
         public string GetBearerToken()
