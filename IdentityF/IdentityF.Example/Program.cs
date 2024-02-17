@@ -1,12 +1,8 @@
 using IdentityF.Core.Helpers;
 using IdentityF.Core.Options;
-using IdentityF.Core.Services.Auth;
 using IdentityF.Core.Services.Db;
 using IdentityF.Data.Enums;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using YaMu.Helpers;
 
 namespace IdentityF.Example
@@ -31,36 +27,16 @@ namespace IdentityF.Example
 
             builder.Services.AddIdentityFServices(DatabaseProviders.Sqlite, configure =>
             {
-                configure.Token.UseSessionManager = false;
-                configure.Token.SessionManager.Implementation = typeof(InMemorySessionManager);
-                configure.Token.SessionManager.Lifetime = ServiceLifetime.Singleton;
+                var options = builder.Configuration.GetSection("IdentityF").Get<IdentityFOptions>();
+                configure = options;
             });
 
             builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 
             builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(jwt =>
-                        {
-                            jwt.RequireHttpsMetadata = false;
-                            jwt.SaveToken = true;
-                            jwt.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                ValidateIssuer = true,
-                                ValidIssuer = "IdentityF",
-                                ValidateAudience = true,
-                                ValidAudience = "IdentityF Client",
-                                ValidateLifetime = true,
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("0293fj2093fj3209fhg290gvj23rj032hf")),
-                                ValidateIssuerSigningKey = true
-                            };
-                        });
-
-
 
             var app = builder.Build();
-
 
 
             app.UseHttpsRedirection();

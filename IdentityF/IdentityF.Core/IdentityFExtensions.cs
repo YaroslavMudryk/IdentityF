@@ -12,9 +12,12 @@ using IdentityF.Core.Services.Location;
 using IdentityF.Core.Services.Sms;
 using IdentityF.Data;
 using IdentityF.Data.Enums;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using YaMu.Helpers;
 
 namespace IdentityF
@@ -77,6 +80,23 @@ namespace IdentityF
             });
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
             services.AddDateTimeProvider();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(jwt =>
+                        {
+                            jwt.RequireHttpsMetadata = false;
+                            jwt.SaveToken = true;
+                            jwt.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuer = true,
+                                ValidIssuer = identityOptions.Token.Issuer,
+                                ValidateAudience = false,
+                                ValidateLifetime = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(identityOptions.Token.SecretKey)),
+                                ValidateIssuerSigningKey = true
+                            };
+                        });
+
             services.Configure(optionsAction);
             return services;
         }
