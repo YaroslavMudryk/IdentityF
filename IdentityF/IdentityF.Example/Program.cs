@@ -1,4 +1,5 @@
 using IdentityF.Core.Helpers;
+using IdentityF.Core.Options;
 using IdentityF.Core.Services.Auth;
 using IdentityF.Core.Services.Db;
 using IdentityF.Data.Enums;
@@ -42,16 +43,15 @@ namespace IdentityF.Example
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(jwt =>
                         {
+                            var identityOptions = builder.Configuration.GetSection("IdentityF").Get<IdentityFOptions>();
                             jwt.RequireHttpsMetadata = false;
                             jwt.SaveToken = true;
                             jwt.TokenValidationParameters = new TokenValidationParameters
                             {
                                 ValidateIssuer = true,
-                                ValidIssuer = builder.Configuration["Token:Issuer"],
-                                ValidateAudience = true,
-                                ValidAudience = builder.Configuration["Token:Audience"],
+                                ValidIssuer = identityOptions?.Token.Issuer,
                                 ValidateLifetime = true,
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Token:SecretKey"]!)),
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(identityOptions?.Token?.SecretKey!)),
                                 ValidateIssuerSigningKey = true,
                             };
                         });
