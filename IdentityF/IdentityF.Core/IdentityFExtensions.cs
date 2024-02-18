@@ -3,6 +3,7 @@ using IdentityF.Core.Features.Confirm;
 using IdentityF.Core.Features.RefreshToken;
 using IdentityF.Core.Features.Sessions;
 using IdentityF.Core.Features.SignIn;
+using IdentityF.Core.Features.SignOut;
 using IdentityF.Core.Features.SignUp;
 using IdentityF.Core.Managers;
 using IdentityF.Core.Middlewares;
@@ -54,6 +55,7 @@ namespace IdentityF
             SessionsDependencies.Register(services);
             ConfirmDependencies.Register(services);
             RefreshTokenDependencies.Register(services);
+            SignOutDependencies.Register(services);
 
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
 

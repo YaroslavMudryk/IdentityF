@@ -18,9 +18,4 @@
     <ProjectReference Include="..\IdentityF.Data\IdentityF.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Confirm\Dtos\" />
-    <Folder Include="Features\RefreshToken\Dtos\" />
-  </ItemGroup>
-
 </Project>

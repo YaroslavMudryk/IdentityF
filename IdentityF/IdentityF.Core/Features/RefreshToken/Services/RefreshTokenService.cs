@@ -27,6 +27,9 @@ namespace IdentityF.Core.Features.RefreshToken.Services
             if (expiredToken == null)
                 throw new BadRequestException("Invalid refresh token");
 
+            if (expiredToken.Session.Status == Data.Entities.SessionStatus.Close)
+                throw new BadRequestException("Current session already closed");
+
             var jwtToken = await _tokenService.GetUserTokenAsync(new UserTokenDto
             {
                 AuthType = AuthType.Password,
