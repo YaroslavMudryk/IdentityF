@@ -26,7 +26,10 @@ namespace IdentityF.Example
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            builder.Services.AddIdentityFServices();
+            builder.Services.AddIdentityFServices(configure =>
+            {
+                configure.Token.LifetimeInMinutes = 120;
+            });
 
             builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 

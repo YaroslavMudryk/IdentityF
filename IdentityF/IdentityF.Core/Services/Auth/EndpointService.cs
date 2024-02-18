@@ -30,7 +30,7 @@ namespace IdentityF.Core.Services.Auth
                 throw new UnauthorizedException();
 
             if (_options.Token.UseSessionManager)
-                if (_sessionManager.IsActiveToken(token))
+                if (!_sessionManager.IsActiveToken(token))
                     throw new UnauthorizedException();
         }
     }

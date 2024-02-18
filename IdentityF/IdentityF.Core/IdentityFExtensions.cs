@@ -100,7 +100,10 @@ namespace IdentityF
         {
             var identityOptions = new IdentityFOptions();
             if (optionsAction != null)
+            {
+                services.Configure(optionsAction);
                 optionsAction(identityOptions);
+            }
 
             SmsDependencies.Register(services);
             EmailDependencies.Register(services);
@@ -166,7 +169,6 @@ namespace IdentityF
                     options.UseMySql(db.ConnectionString, ServerVersion.AutoDetect(db.ConnectionString));
                 }
             });
-            services.Configure(optionsAction);
             return services;
         }
 
