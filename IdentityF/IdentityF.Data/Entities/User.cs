@@ -4,7 +4,7 @@
     {
         public User()
         {
-            IsConfirmed = false;
+            IsConfirmed = true;
             FailedLoginAttempts = 0;
             CanBeBlocked = true;
             BlockedUntil = null;

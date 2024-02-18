@@ -29,6 +29,7 @@ namespace IdentityF.Example
             builder.Services.AddIdentityFServices(configure =>
             {
                 configure.Token.LifetimeInMinutes = 120;
+                configure.Endpoints[HttpActions.ConfirmAction].IsAvailable = false;
             });
 
             builder.Services.AddResponseCompression(options => options.EnableForHttps = true);

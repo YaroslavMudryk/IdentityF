@@ -43,8 +43,6 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var now = _dateTimeProvider.UtcNow;
 
-            var confirmAccount = Data.Entities.Confirm.NewWithAccount(now, Generator.GetConfirmCode(_options.Codes[CodeConfigs.ConfirmAccount]));
-
             var userPassword = signUpDto.Password.GeneratePasswordHash();
 
             var newPassword = new Password
@@ -58,9 +56,15 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var newUser = new User(signUpDto.FirstName, signUpDto.LastName, signUpDto.UserName, signUpDto.Login, userPassword)
             {
-                Confirms = new List<Data.Entities.Confirm> { confirmAccount },
                 Passwords = new List<Password> { newPassword }
             };
+
+            if (_options.Endpoints[HttpActions.ConfirmAction].IsAvailable)
+            {
+                var confirmAccount = Data.Entities.Confirm.NewWithAccount(now, Generator.GetConfirmCode(_options.Codes[CodeConfigs.ConfirmAccount]));
+                newUser.Confirms = new List<Data.Entities.Confirm> { confirmAccount };
+                newUser.IsConfirmed = false;
+            }
 
             var newUserRole = new UserRole
             {
