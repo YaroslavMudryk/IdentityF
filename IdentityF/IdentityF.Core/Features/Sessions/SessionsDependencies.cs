@@ -8,8 +8,9 @@ namespace IdentityF.Core.Features.Sessions
     {
         public static void Register(IServiceCollection services)
         {
-            services.AddScoped<IEndpointHandler, SessionsEndpointHandler>();
             services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<IEndpointHandler, SessionsEndpointHandler>();
+            services.AddScoped<IEndpointHandler, CloseSessionsEndpointHandler>();
         }
     }
 }

@@ -5,5 +5,6 @@ namespace IdentityF.Core.Features.Sessions.Services
     public interface ISessionService
     {
         Task<List<SessionDto>> GetUserSessionsAsync(int q, int page);
+        Task<int> CloseSessionsByIdsAsync(string[] ids);
     }
 }

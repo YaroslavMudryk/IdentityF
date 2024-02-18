@@ -2,6 +2,7 @@
 using Extensions.Password;
 using IdentityF.Core.Constants;
 using IdentityF.Core.ErrorHandling.Exceptions;
+using IdentityF.Core.Extensions;
 using IdentityF.Core.Features.SignIn.Dtos;
 using IdentityF.Core.Options;
 using IdentityF.Core.Services.Auth;
@@ -94,6 +95,9 @@ namespace IdentityF.Core.Features.SignIn.Services
                     throw new BadRequestException($"Account locked up to {user.BlockedUntil.Value.ToString("HH:mm (dd.MM.yyyy)")}");
                 }
             }
+
+            if (signInDto.Device == null)
+                signInDto.Device = _detector.GetClientInfo().MapToClientInfo();
 
             if (!signInDto.Password.VerifyPasswordHash(user.PasswordHash))
             {
