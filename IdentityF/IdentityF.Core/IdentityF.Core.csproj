@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Confirm\Dtos\" />
+    <Folder Include="Features\RefreshToken\Dtos\" />
   </ItemGroup>
 
 </Project>

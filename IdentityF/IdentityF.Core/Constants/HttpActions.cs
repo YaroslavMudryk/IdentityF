@@ -8,5 +8,6 @@
         public const string CloseSessionsAction = "CloseSessions";
         public const string ConfirmAction = "Confirm";
         public const string SendConfirmAction = "SendConfirm";
+        public const string RefreshTokenAction = "RefreshToken";
     }
 }

@@ -9,6 +9,7 @@ namespace IdentityF.Core.Constants
         public const string Sessions = "/api/v1/identity/sessions";
         public const string Confirm = "/api/v1/identity/confirm";
         public const string SendConfirm = "/api/v1/identity/send-confirm";
+        public const string RefreshToken = "/api/v1/identity/refresh";
 
         public static Dictionary<string, EndpointOptions> Default = new Dictionary<string, EndpointOptions>
         {
@@ -18,6 +19,7 @@ namespace IdentityF.Core.Constants
             { HttpActions.CloseSessionsAction, new EndpointOptions { Endpoint = Sessions, IsAvailable = true, HttpMethod = HttpMethod.Delete.Method, IsSecure = true } },
             { HttpActions.ConfirmAction, new EndpointOptions { Endpoint = Confirm, IsAvailable = true, HttpMethod = HttpMethod.Post.Method, IsSecure = false } },
             { HttpActions.SendConfirmAction, new EndpointOptions { Endpoint = SendConfirm, IsAvailable = true, HttpMethod = HttpMethod.Post.Method, IsSecure = false } },
+            { HttpActions.RefreshTokenAction, new EndpointOptions { Endpoint = RefreshToken, IsAvailable = true, HttpMethod = HttpMethod.Post.Method, IsSecure = false } },
         };
     }
 }
