@@ -19,14 +19,14 @@ namespace IdentityF.Data.Entities
             return dateTime >= ActiveFrom && dateTime <= ActiveTo;
         }
 
-        public static Confirm NewWithEmail(DateTime now, string code)
+        public static Confirm NewWithAccount(DateTime now, string code)
         {
             return new Confirm
             {
                 ActiveFrom = now,
                 ActiveTo = now.AddDays(1),
                 Code = code,
-                Type = ConfirmType.Email,
+                Type = ConfirmType.Account,
                 IsActivated = false,
                 ActivetedAt = null
             };
@@ -34,6 +34,7 @@ namespace IdentityF.Data.Entities
     }
     public enum ConfirmType
     {
+        Account = 1,
         Phone,
         Email
     }

@@ -43,7 +43,7 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var now = _dateTimeProvider.UtcNow;
 
-            var confirmAccount = Confirm.NewWithEmail(now, Generator.GetConfirmCode(_options.Codes[CodeConfigs.ConfirmAccount]));
+            var confirmAccount = Data.Entities.Confirm.NewWithAccount(now, Generator.GetConfirmCode(_options.Codes[CodeConfigs.ConfirmAccount]));
 
             var userPassword = signUpDto.Password.GeneratePasswordHash();
 
@@ -58,7 +58,7 @@ namespace IdentityF.Core.Features.SignUp.Services
 
             var newUser = new User(signUpDto.FirstName, signUpDto.LastName, signUpDto.UserName, signUpDto.Login, userPassword)
             {
-                Confirms = new List<Confirm> { confirmAccount },
+                Confirms = new List<Data.Entities.Confirm> { confirmAccount },
                 Passwords = new List<Password> { newPassword }
             };
 

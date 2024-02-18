@@ -1,4 +1,5 @@
 ﻿using IdentityF.Core.ErrorHandling;
+using IdentityF.Core.Features.Confirm;
 using IdentityF.Core.Features.Sessions;
 using IdentityF.Core.Features.SignIn;
 using IdentityF.Core.Features.SignUp;
@@ -37,6 +38,7 @@ namespace IdentityF
             SignInDependencies.Register(services);
             LocationDependencies.Register(services);
             SessionsDependencies.Register(services);
+            ConfirmDependencies.Register(services);
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
 
             var sessionManager = identityOptions.Token.SessionManager;
@@ -113,6 +115,7 @@ namespace IdentityF
             SignInDependencies.Register(services);
             LocationDependencies.Register(services);
             SessionsDependencies.Register(services);
+            ConfirmDependencies.Register(services);
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
 
             var sessionManager = identityOptions.Token.SessionManager;

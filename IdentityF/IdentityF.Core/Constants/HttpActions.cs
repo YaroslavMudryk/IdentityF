@@ -6,5 +6,6 @@
         public const string SignInAction = "SignIn";
         public const string SessionsAction = "Sessions";
         public const string CloseSessionsAction = "CloseSessions";
+        public const string ConfirmAction = "Confirm";
     }
 }
