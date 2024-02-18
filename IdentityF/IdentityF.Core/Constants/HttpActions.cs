@@ -7,5 +7,6 @@
         public const string SessionsAction = "Sessions";
         public const string CloseSessionsAction = "CloseSessions";
         public const string ConfirmAction = "Confirm";
+        public const string SendConfirmAction = "SendConfirm";
     }
 }

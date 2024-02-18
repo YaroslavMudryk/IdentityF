@@ -10,6 +10,7 @@ namespace IdentityF.Core.Features.Confirm
         {
             services.AddScoped<IConfirmAccountService, ConfirmAccountService>();
             services.AddScoped<IEndpointHandler, ConfirmEndpointHandler>();
+            services.AddScoped<IEndpointHandler, SendConfirmEndpointHandler>();
         }
     }
 }
