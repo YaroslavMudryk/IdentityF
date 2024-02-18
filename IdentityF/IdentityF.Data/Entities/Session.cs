@@ -15,7 +15,7 @@ namespace IdentityF.Data.Entities
         public DateTime? DeactivatedAt { set; get; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public int? DeviceId { get; set; }
+        public Guid? DeviceId { get; set; }
         public Device Device { get; set; }
         public List<Token> Tokens { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using Client = Extensions.DeviceDetector.Models.ClientInfo;
 using IdentityF.Data.Entities.Internal;
+using IdentityF.Data.Entities;
 
 namespace IdentityF.Core.Extensions
 {
@@ -34,6 +35,30 @@ namespace IdentityF.Core.Extensions
                     Brand = clientInfo.Device.Brand,
                     Model = clientInfo.Device.Model,
                 }
+            };
+        }
+
+        public static Device MapToDevice(this ClientInfo clientInfo)
+        {
+            if (clientInfo == null)
+                return null;
+
+            return new Device
+            {
+                Brand = clientInfo.Device.Brand,
+                Model = clientInfo.Device.Model,
+                Type = clientInfo.Device.Type,
+                VendorModel = clientInfo.Device.VendorModel,
+                DeviceId = clientInfo.Device.DeviceId,
+                Browser = clientInfo.Browser.Name,
+                BrowserEngine = clientInfo.Browser.Engine,
+                BrowserEngineVersion = clientInfo.Browser.EngineVersion,
+                BrowserType = clientInfo.Browser.Type,
+                BrowserVersion = clientInfo.Browser.Version,
+                Os = clientInfo.Os.Name,
+                OsPlatform = clientInfo.Os.Platform,
+                OsShortName = clientInfo.Os.ShortName,
+                OsVersion = clientInfo.Os.Version
             };
         }
     }

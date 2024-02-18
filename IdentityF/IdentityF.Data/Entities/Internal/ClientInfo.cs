@@ -22,6 +22,7 @@
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Type { get; set; }
+        public string VendorModel { get; set; } // fullName of device (Brand+Model)
     }
 
     public class OsInfo : BaseInfo
