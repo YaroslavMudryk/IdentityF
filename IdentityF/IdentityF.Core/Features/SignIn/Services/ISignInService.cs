@@ -4,6 +4,7 @@ namespace IdentityF.Core.Features.SignIn.Services
 {
     public interface ISignInService
     {
-        Task<JwtTokenDto> SignInAsync(SignInDto signInDto);
+        Task<JwtTokenDto> SignInByPasswordAsync(SignInDto signInDto);
+        Task<JwtTokenDto> SignInByMfaAsync(SignInMfaDto signInMfa);
     }
 }

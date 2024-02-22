@@ -1,5 +1,6 @@
 ﻿using Extensions.DeviceDetector;
 using Extensions.Password;
+using Google.Authenticator;
 using IdentityF.Core.Constants;
 using IdentityF.Core.ErrorHandling.Exceptions;
 using IdentityF.Core.Extensions;
@@ -40,7 +41,69 @@ namespace IdentityF.Core.Features.SignIn.Services
             _options = options.Value;
         }
 
-        public async Task<JwtTokenDto> SignInAsync(SignInDto signInDto)
+        public async Task<JwtTokenDto> SignInByMfaAsync(SignInMfaDto signInMfa)
+        {
+            var sessionId = Guid.Parse(signInMfa.SessionId);
+
+            var session = await _db.Sessions.AsNoTracking().Include(s => s.User).FirstOrDefaultAsync(s => s.Id == sessionId);
+
+            if (session == null)
+                throw new NotFoundException($"Session with ID: {sessionId} not found");
+
+            if (session.Status != SessionStatus.New)
+                throw new BadRequestException("Session already activated or closed");
+
+            var secretKey = session.User.MfaSecretKey;
+            var twoFactor = new TwoFactorAuthenticator();
+
+            var currentPin = twoFactor.GetCurrentPIN(secretKey);
+
+            if (!currentPin.Equals(signInMfa.Code))
+                throw new BadRequestException("Code is incorrect");
+
+            var jwtToken = await _tokenService.GetUserTokenAsync(new UserTokenDto
+            {
+                AuthType = AuthType.Password,
+                UserId = session.UserId,
+                User = session.User,
+                Lang = session.Language,
+                SessionId = session.Id,
+                Session = session
+            });
+
+            session.Tokens = new List<Token> { jwtToken };
+
+            await _db.LoginAttempts.AddAsync(new LoginAttempt
+            {
+                Login = session.User.Login,
+                Client = session.Client,
+                Location = session.Location,
+                IsSuccess = true,
+                UserId = session.UserId
+            });
+
+            session.Status = SessionStatus.Active;
+
+            _db.Sessions.Update(session);
+
+            await _db.SaveChangesAsync();
+
+            _sessionManager.AddSession(new SessionModel
+            {
+                Id = session.Id,
+                UserId = session.UserId,
+                Tokens = new List<TokenModel> { new TokenModel { ExpiredAt = jwtToken.ExpiredAt, Token = jwtToken.JwtToken, RefreshToken = jwtToken.RefreshToken } }
+            });
+
+            return new JwtTokenDto
+            {
+                ExpiredAt = jwtToken.ExpiredAt,
+                RefreshToken = jwtToken.RefreshToken,
+                Token = jwtToken.JwtToken
+            };
+        }
+
+        public async Task<JwtTokenDto> SignInByPasswordAsync(SignInDto signInDto)
         {
             if (!Regex.IsMatch(signInDto.Password, _options.Password.Regex))
                 throw new PasswordRequirementsException(_options.Password.ErrorRegexMessages["en"]);

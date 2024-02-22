@@ -19,6 +19,7 @@ namespace IdentityF.Core.Features.Sessions.Mappings
                 Id = session.Id,
                 CreatedAt = session.CreatedAt,
                 Status = session.Status,
+                WithMfa = session.ViaMFA,
                 Current = currentSessionId.HasValue ? session.Id == currentSessionId : false,
                 Language = session.Language,
                 App = session.App,

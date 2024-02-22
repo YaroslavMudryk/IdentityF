@@ -12,6 +12,7 @@ namespace IdentityF.Core.Constants
         public const string RefreshToken = "/api/v1/identity/refresh";
         public const string SignOut = "/api/v1/identity/signout";
         public const string Mfa = "/api/v1/identity/mfa";
+        public const string SignInMfa = "/api/v1/identity/signin-mfa";
 
         public static Dictionary<string, EndpointOptions> Default = new Dictionary<string, EndpointOptions>
         {
@@ -25,6 +26,7 @@ namespace IdentityF.Core.Constants
             { HttpActions.SignOutAction, new EndpointOptions { Endpoint = SignOut, IsAvailable = true, HttpMethod = HttpMethod.Delete.Method, IsSecure = true } },
             { HttpActions.TurnOnMfaAction, new EndpointOptions { Endpoint  = Mfa, IsAvailable = true, HttpMethod = HttpMethod.Post.Method, IsSecure = true } },
             { HttpActions.TurnOffMfaAction, new EndpointOptions { Endpoint  = Mfa, IsAvailable = true, HttpMethod = HttpMethod.Delete.Method, IsSecure = true } },
+            { HttpActions.SignInMfaAction, new EndpointOptions { Endpoint = SignInMfa, IsAvailable = true, HttpMethod = HttpMethod.Post.Method, IsSecure = false } }
         };
     }
 }

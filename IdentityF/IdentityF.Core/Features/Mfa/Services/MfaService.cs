@@ -37,8 +37,10 @@ namespace IdentityF.Core.Features.Mfa.Services
                 throw new BadRequestException("MFA already diactivated");
 
             var twoFactor = new TwoFactorAuthenticator();
-            
-            if (!twoFactor.ValidateTwoFactorPIN(userForDisableMfa.MfaSecretKey, code))
+
+            var currentPin = twoFactor.GetCurrentPIN(userForDisableMfa.MfaSecretKey);
+
+            if (!currentPin.Equals(code))
                 throw new BadRequestException("Code is incorrect");
 
             userForDisableMfa.Mfa = false;
@@ -124,7 +126,9 @@ namespace IdentityF.Core.Features.Mfa.Services
 
                 var twoFactor = new TwoFactorAuthenticator();
 
-                if (!twoFactor.ValidateTwoFactorPIN(mfaToActivate.Secret, code))
+                var currentPin = twoFactor.GetCurrentPIN(mfaToActivate.Secret);
+
+                if (!currentPin.Equals(code))
                     throw new BadRequestException("Code is incorrect");
 
                 user.Mfa = true;

@@ -12,5 +12,6 @@
         public const string SignOutAction = "SignOut";
         public const string TurnOnMfaAction = "TurnOnMfa";
         public const string TurnOffMfaAction = "TurnOffMfa";
+        public const string SignInMfaAction = "SignInMfa";
     }
 }

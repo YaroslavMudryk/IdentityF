@@ -11,6 +11,6 @@ namespace IdentityF.Core.Features.SignIn.Dtos
         [JsonPropertyName("sessionId")]
         public string SessionId { get; set; }
         [JsonPropertyName("expiredAt")]
-        public DateTime ExpiredAt { get; set; }
+        public DateTime? ExpiredAt { get; set; }
     }
 }

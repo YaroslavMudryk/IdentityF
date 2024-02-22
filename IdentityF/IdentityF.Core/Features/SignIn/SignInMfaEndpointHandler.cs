@@ -1,5 +1,4 @@
 ﻿using IdentityF.Core.Constants;
-using IdentityF.Core.Exceptions.Extensions;
 using IdentityF.Core.Features.SignIn.Dtos;
 using IdentityF.Core.Features.SignIn.Services;
 using IdentityF.Core.Handlers;
@@ -10,41 +9,44 @@ using IdentityF.Core.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
+using IdentityF.Core.Exceptions.Extensions;
 
 namespace IdentityF.Core.Features.SignIn
 {
-    public class SignInEndpointHandler : IEndpointHandler
+    public class SignInMfaEndpointHandler : IEndpointHandler
     {
-        public SignInEndpointHandler()
+        public SignInMfaEndpointHandler()
         {
 
         }
-        public SignInEndpointHandler(string action, EndpointOptions endpoint)
+        public SignInMfaEndpointHandler(string action, EndpointOptions endpoint)
         {
             Action = action;
             Endpoint = endpoint;
         }
-        public string Action { get; } = HttpActions.SignInAction;
+
+
+        public string Action { get; } = HttpActions.SignInMfaAction;
 
         public EndpointOptions Endpoint { get; }
 
         public IEndpointHandler CreateFromOptions(Dictionary<string, EndpointOptions> options)
         {
             var currentOption = options[Action];
-            return new SignInEndpointHandler(Action, currentOption);
+            return new SignInMfaEndpointHandler(Action, currentOption);
         }
 
         public async Task HandleAsync(HttpContext context)
         {
-            var signInBody = await JsonSerializer.DeserializeAsync<SignInDto>(context.Request.Body, JsonOptionsDefault.Default);
+            var loginMfaBody = await JsonSerializer.DeserializeAsync<SignInMfaDto>(context.Request.Body, JsonOptionsDefault.Default);
 
-            Validation.ValidateModel(signInBody);
+            Validation.ValidateModel(loginMfaBody);
 
-            var signInService = context.RequestServices.GetRequiredService<ISignInService>();
+            var authService = context.RequestServices.GetRequiredService<ISignInService>();
 
-            var token = await signInService.SignInByPasswordAsync(signInBody);
+            var result = await authService.SignInByMfaAsync(loginMfaBody);
 
-            await context.Response.WriteAsJsonAsync(ApiResponse.Success(200, token));
+            await context.Response.WriteAsJsonAsync(ApiResponse.Success(200, result));
         }
     }
 }

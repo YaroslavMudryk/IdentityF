@@ -13,6 +13,7 @@ namespace IdentityF.Core.Features.SignIn
             services.AddScoped<IEndpointHandler, SignInEndpointHandler>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISignInService, SignInService>();
+            services.AddScoped<IEndpointHandler, SignInMfaEndpointHandler>();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace IdentityF.Core.Features.Sessions.Dtos
         public DateTime CreatedAt { get; set; }
         public bool Current { get; set; }
         public SessionStatus Status { get; set; }
+        public bool WithMfa { get; set; }
         public string Language { get; set; }
         public AppInfo App { get; set; }
         public LocationInfo Location { get; set; }
