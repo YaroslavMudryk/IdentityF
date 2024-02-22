@@ -37,6 +37,18 @@ namespace IdentityF.Core.Helpers
             return code;
         }
 
+        public static string[] GetRestoreCodes()
+        {
+            var codes = new string[8];
+
+            for (int i = 0; i < 8; i++)
+            {
+                codes[i] = Guid.NewGuid().ToString("N").ToUpper().Substring(0,8);
+            }
+
+            return codes;
+        }
+
         public static string GetUserName()
         {
             var random = new Random();

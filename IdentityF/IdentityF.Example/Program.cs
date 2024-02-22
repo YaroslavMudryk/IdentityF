@@ -28,6 +28,7 @@ namespace IdentityF.Example
 
             builder.Services.AddIdentityFServices(configure =>
             {
+                configure.Name = "DUT ID";
                 configure.Token.LifetimeInMinutes = 120;
                 configure.Endpoints[HttpActions.ConfirmAction].IsAvailable = false;
             });

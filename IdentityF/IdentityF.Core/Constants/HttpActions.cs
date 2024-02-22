@@ -10,5 +10,7 @@
         public const string SendConfirmAction = "SendConfirm";
         public const string RefreshTokenAction = "RefreshToken";
         public const string SignOutAction = "SignOut";
+        public const string TurnOnMfaAction = "TurnOnMfa";
+        public const string TurnOffMfaAction = "TurnOffMfa";
     }
 }

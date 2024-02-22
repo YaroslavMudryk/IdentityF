@@ -1,5 +1,6 @@
 ﻿using IdentityF.Core.ErrorHandling;
 using IdentityF.Core.Features.Confirm;
+using IdentityF.Core.Features.Mfa;
 using IdentityF.Core.Features.RefreshToken;
 using IdentityF.Core.Features.Sessions;
 using IdentityF.Core.Features.SignIn;
@@ -56,6 +57,7 @@ namespace IdentityF
             ConfirmDependencies.Register(services);
             RefreshTokenDependencies.Register(services);
             SignOutDependencies.Register(services);
+            MfaDependencies.Register(services);
 
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
 
