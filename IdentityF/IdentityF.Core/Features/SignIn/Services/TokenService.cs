@@ -82,6 +82,7 @@ namespace IdentityF.Core.Features.SignIn.Services
                 ExpiredAt = expiredAt,
                 SessionId = session.Id,
                 Session = session,
+                RefreshTokenUsed = false,
                 RefreshToken = Guid.NewGuid().ToString("N"),
             };
         }
