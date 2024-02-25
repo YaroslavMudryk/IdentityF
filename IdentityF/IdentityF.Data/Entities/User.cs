@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class User : BaseModel<int>
     {
@@ -41,15 +43,25 @@
         public string Phone { get; set; }
         public bool IsConfirmed { get; set; }
 
+        [JsonIgnore]
         public List<Password> Passwords { get; set; }
+        [JsonIgnore]
         public List<Block> Blocks { get; set; }
+        [JsonIgnore]
         public List<Mfa> Mfas { get; set; }
+        [JsonIgnore]
         public List<Confirm> Confirms { get; set; }
+        [JsonIgnore]
         public List<Contact> Contacts { get; set; }
+        [JsonIgnore]
         public List<UserRole> UserRoles { get; set; }
+        [JsonIgnore]
         public List<ExternalLogin> ExternalLogins { get; set; }
+        [JsonIgnore]
         public List<Qr> Qrs { get; set; }
+        [JsonIgnore]
         public List<LoginAttempt> LoginAttempts { get; set; }
+        [JsonIgnore]
         public List<Session> Sessions { get; set; }
 
         public bool IsBlocked(DateTime dateTime)

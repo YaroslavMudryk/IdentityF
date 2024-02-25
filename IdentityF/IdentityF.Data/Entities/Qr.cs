@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class Qr : BaseModel<Guid>
     {
@@ -13,6 +15,7 @@
         public string Device { get; set; }
         public Guid? SessionId { get; set; }
         public int? UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
     }
 }

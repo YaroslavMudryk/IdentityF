@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class Token : BaseModel<Guid>
     {
@@ -7,6 +9,7 @@
         public bool RefreshTokenUsed { get; set; }
         public DateTime ExpiredAt { set; get; }
         public Guid SessionId { set; get; }
+        [JsonIgnore]
         public Session Session { set; get; }
     }
 }

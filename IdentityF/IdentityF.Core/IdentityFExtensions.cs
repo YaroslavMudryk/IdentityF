@@ -10,6 +10,7 @@ using IdentityF.Core.Managers;
 using IdentityF.Core.Middlewares;
 using IdentityF.Core.Options;
 using IdentityF.Core.Services.Auth;
+using IdentityF.Core.Services.ChangeHistory;
 using IdentityF.Core.Services.Db;
 using IdentityF.Core.Services.Email;
 using IdentityF.Core.Services.Location;
@@ -58,6 +59,7 @@ namespace IdentityF
             RefreshTokenDependencies.Register(services);
             SignOutDependencies.Register(services);
             MfaDependencies.Register(services);
+            ChangeHistoryDependencies.Register(services);
 
             services.AddScoped<IDatabaseService, IdentityDatabaseService>();
 

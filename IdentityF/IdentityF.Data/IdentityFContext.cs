@@ -34,6 +34,7 @@ namespace IdentityF.Data
         public DbSet<Claim> Claims { get; set; }
         public DbSet<AppClaim> AppClaims { get; set; }
         public DbSet<App> Apps { get; set; }
+        public DbSet<ChangeLog> ChangeLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,15 +44,22 @@ namespace IdentityF.Data
         public override int SaveChanges()
         {
             this.ApplyAuditInfo(_currentUserContext, _dateTimeProvider);
+            this.DetectLogHistory(_dateTimeProvider);
 
             return base.SaveChanges();
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             this.ApplyAuditInfo(_currentUserContext, _dateTimeProvider);
+            var logs = this.DetectLogHistory(_dateTimeProvider);
 
-            return base.SaveChangesAsync(cancellationToken);
+            var saved = await base.SaveChangesAsync(cancellationToken);
+
+            this.ChangeLogs.AddRange(logs);
+            await base.SaveChangesAsync(cancellationToken);
+
+            return saved;
         }
     }
 }

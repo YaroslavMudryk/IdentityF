@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace IdentityF.Data.Entities
 {
@@ -10,6 +11,7 @@ namespace IdentityF.Data.Entities
         [NotMapped]
         public bool IsPermanent => Finish == DateTime.MaxValue;
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
     }
 }

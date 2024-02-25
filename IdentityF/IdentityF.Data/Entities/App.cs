@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class App : BaseModel<int>
     {
@@ -11,6 +13,7 @@
         public bool IsActive { get; set; }
         public DateTime ActiveFrom { set; get; }
         public DateTime? ActiveTo { set; get; }
+        [JsonIgnore]
         public List<AppClaim> AppClaims { get; set; }
 
         public bool IsActiveByTime(DateTime dateTime)

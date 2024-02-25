@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class Contact : BaseModel<int>
     {
@@ -9,6 +11,7 @@
         public bool IsConfirmed { get; set; }
         public DateTime? ConfirmedAt { get; set; }
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
     }
 

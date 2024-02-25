@@ -1,4 +1,4 @@
-﻿using System.Reflection.Emit;
+﻿using System.Text.Json.Serialization;
 
 namespace IdentityF.Data.Entities
 {
@@ -12,6 +12,7 @@ namespace IdentityF.Data.Entities
         public ConfirmType Type { get; set; }
         public int? ContactId { get; set; }
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
 
         public bool IsActualyRequest(DateTime dateTime)

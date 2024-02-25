@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class Device : BaseModel<Guid>
     {
@@ -23,6 +25,7 @@
         public DateTime? VerifiedAt { get; set; }
         public Guid? VerifiedOnSessionId { get; set; }
 
+        [JsonIgnore]
         public List<Session> Sessions { get; set; }
     }
 }

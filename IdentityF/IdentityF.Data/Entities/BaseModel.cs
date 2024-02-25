@@ -24,5 +24,6 @@ namespace IdentityF.Data.Entities
         public string DeletedFromIp { get; set; }
 
         public int Version { get; set; }
+        public string Signature { get; set; }
     }
 }

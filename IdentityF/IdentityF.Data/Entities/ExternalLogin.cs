@@ -1,4 +1,6 @@
-﻿namespace IdentityF.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace IdentityF.Data.Entities
 {
     public class ExternalLogin : BaseModel<int>
     {
@@ -7,6 +9,7 @@
         public bool IsActive { set; get; }
         public DateTime? DeactivatedAt { get; set; }
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
     }
 }

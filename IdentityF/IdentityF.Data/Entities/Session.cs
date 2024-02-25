@@ -1,4 +1,5 @@
 ﻿using IdentityF.Data.Entities.Internal;
+using System.Text.Json.Serialization;
 
 namespace IdentityF.Data.Entities
 {
@@ -14,9 +15,12 @@ namespace IdentityF.Data.Entities
         public Guid? DeactivatedBySessionId { set; get; }
         public DateTime? DeactivatedAt { set; get; }
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
         public Guid? DeviceId { get; set; }
+        [JsonIgnore]
         public Device Device { get; set; }
+        [JsonIgnore]
         public List<Token> Tokens { get; set; }
     }
 

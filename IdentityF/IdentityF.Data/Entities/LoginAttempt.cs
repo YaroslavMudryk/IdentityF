@@ -1,4 +1,5 @@
 ﻿using IdentityF.Data.Entities.Internal;
+using System.Text.Json.Serialization;
 
 namespace IdentityF.Data.Entities
 {
@@ -11,6 +12,7 @@ namespace IdentityF.Data.Entities
         public bool IsSuccess { set; get; }
         public string SessionId { set; get; }
         public int? UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
     }
 }

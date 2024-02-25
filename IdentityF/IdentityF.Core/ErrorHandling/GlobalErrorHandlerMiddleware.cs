@@ -23,7 +23,7 @@ namespace IdentityF.Core.ErrorHandling
             {
                 await context.Response.WriteAsJsonAsync(ex);
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
             }

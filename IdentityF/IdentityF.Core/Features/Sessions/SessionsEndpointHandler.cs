@@ -4,6 +4,8 @@ using IdentityF.Core.Features.Sessions.Services;
 using IdentityF.Core.Handlers;
 using IdentityF.Core.Options;
 using IdentityF.Core.Responses;
+using IdentityF.Core.Services.ChangeHistory;
+using IdentityF.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
