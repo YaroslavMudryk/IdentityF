@@ -13,13 +13,11 @@ namespace IdentityF.Core.Features.Confirm.Services
     public class ConfirmAccountService : IConfirmAccountService
     {
         private readonly IdentityFContext _db;
-        private readonly ICurrentUserContext _currentUserContext;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IdentityFOptions _options;
-        public ConfirmAccountService(IdentityFContext db, ICurrentUserContext currentUserContext, IDateTimeProvider dateTimeProvider, IOptions<IdentityFOptions> options)
+        public ConfirmAccountService(IdentityFContext db, IDateTimeProvider dateTimeProvider, IOptions<IdentityFOptions> options)
         {
             _db = db;
-            _currentUserContext = currentUserContext;
             _dateTimeProvider = dateTimeProvider;
             _options = options.Value;
         }
