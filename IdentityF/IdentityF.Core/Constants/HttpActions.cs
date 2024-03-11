@@ -13,5 +13,8 @@
         public const string TurnOnMfaAction = "TurnOnMfa";
         public const string TurnOffMfaAction = "TurnOffMfa";
         public const string SignInMfaAction = "SignInMfa";
+        public const string DevicesAction = "Devices";
+        public const string GetDevicesAction = "GetDevices";
+        public const string CheckDeviceAction = "CheckDevice";
     }
 }

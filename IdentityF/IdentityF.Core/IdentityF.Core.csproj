@@ -19,4 +19,8 @@
     <ProjectReference Include="..\IdentityF.Data\IdentityF.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Devices\Services\" />
+  </ItemGroup>
+
 </Project>
